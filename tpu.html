@@ -1,0 +1,185 @@
+<!DOCTYPE html>  
+<html lang="ru">  
+<head>  
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <title>Создавайте уникальные украшения</title>  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">  
+  <style>  
+    /* Основные стили */  
+    body {  
+      margin: 0;  
+      padding: 0;  
+      font-family: 'Poppins', sans-serif;  
+      background: url('https://avatars.mds.yandex.net/i?id=61a75719f207f5227aadef3ce6b86bb2_l-7750971-images-thumbs&n=13') no-repeat center center fixed;  
+      background-size: cover;  
+      color: #4e2943;  
+    }  
+  
+    h1, h2 {  
+      font-family: 'Raleway', sans-serif;  
+      font-weight: 600;  
+    }  
+  
+    .hero {  
+      text-align: center;  
+      padding: 100px 0;  
+      background: rgba(234, 160, 248 0.5); /* полупрозрачный черный фон */  
+      border-bottom: 2px solid rgba(95, 8, 111);  
+    }  
+  
+    .hero h1 {  
+      font-size: 3.5rem;  
+      margin-bottom: 20px;  
+    }  
+  
+    .hero p {  
+      font-size: 1.5rem;  
+      margin-bottom: 40px;  
+    }  
+  
+    .cta-button {  
+      background-color: #5f086f;  
+      color: white;  
+      font-size: 1.2rem;  
+      padding: 15px 30px;  
+      text-decoration: none;  
+      border-radius: 30px;  
+      transition: background-color 0.3s ease, transform 0.3s ease;  
+    }  
+  
+    .cta-button:hover {  
+      background-color: #5f086f;  
+      transform: scale(1.1);  
+    }  
+  
+    /* Секции */  
+    .about, .how-it-works, .reviews, .cta, .contact {  
+      padding: 60px 20px;  
+      text-align: center;  
+      background-color: rgba(241, 192, 250, 0.6);  
+      margin-bottom: 40px;  
+      border-radius: 10px;  
+    }  
+  
+    .about h2, .how-it-works h2, .reviews h2 {  
+      font-size: 2.5rem;  
+      margin-bottom: 30px;  
+    }  
+  
+    .how-it-works ol {  
+      text-align: left;  
+      max-width: 800px;  
+      margin: 0 auto;  
+      font-size: 1.2rem;  
+      line-height: 1.8;  
+    }  
+  
+    .reviews p {  
+      font-size: 1.3rem;  
+      font-style: italic;  
+      margin-bottom: 10px;  
+    }  
+  
+    .contact form {  
+      display: grid;  
+      gap: 20px;  
+      max-width: 500px;  
+      margin: 0 auto;  
+      font-size: 1.1rem;  
+    }  
+  
+    .contact input, .contact textarea {  
+      padding: 12px;  
+      font-size: 1rem;  
+      border: none;  
+      border-radius: 5px;  
+    }  
+  
+    .contact button {  
+      background-color: #5f086f;  
+      color: white;  
+      padding: 15px 30px;  
+      font-size: 1.2rem;  
+      border: none;  
+      border-radius: 30px;  
+      cursor: pointer;  
+      transition: background-color 0.3s ease, transform 0.3s ease;  
+    }  
+  
+    .contact button:hover {  
+      background-color: #5f086f;  
+      transform: scale(1.1);  
+    }  
+  
+    /* Мобильная версия */  
+    @media (max-width: 768px) {  
+      .hero h1 {  
+        font-size: 2.5rem;  
+      }  
+  
+      .hero p {  
+        font-size: 1.2rem;  
+      }  
+  
+      .about h2, .how-it-works h2, .reviews h2 {  
+        font-size: 2rem;  
+      }  
+  
+      .cta-button {  
+        padding: 12px 24px;  
+      }  
+    }  
+  </style>  
+</head>  
+<body>  
+    <!-- Заголовок страницы -->  
+  <section class="hero">  
+    <h1>ASHEKEI</h1> <!-- Добавлен крупный заголовок -->  
+    <p>Создавайте уникальные украшения своими руками!</p>  
+    <a href="#create" class="cta-button">Начать создавать</a>  
+  </section>  
+  
+  <!-- О нас -->  
+  <section class="about">  
+    <h2>Почему стоит выбрать наш сайт?</h2>  
+    <p>Наш сайт позволяет вам стать дизайнером украшений, создавая изделия, которые идеально подходят именно вам. С помощью нашего конструктора вы можете выбирать материалы, форму и стиль украшений, а также настроить их под свои предпочтения.</p>  
+  </section>  
+  
+  <!-- Как это работает -->  
+  <section class="how-it-works">  
+    <h2>Как создать уникальное украшение?</h2>  
+    <ol>  
+      <li>Выберите тип украшения – кольцо, серьги, браслет, ожерелье.</li>
+      <li>Настройте дизайн – выберите материалы, форму, камни и другие детали.</li>  
+      <li>Просмотрите 3D модель – увидьте ваше украшение в реалистичном 
+изображении.</li>  
+      <li>Закажите или сохраните ваш дизайн – получайте украшение по почте или сохраняйте для дальнейшей доработки.</li>  
+    </ol>  
+  </section>  
+  
+  <!-- Отзывы -->  
+  <section class="reviews">  
+    <h2>Что говорят наши пользователи?</h2>  
+    <p>"Просто потрясающе! Я создала идеальное кольцо для себя!" - Анна</p>  
+    <p>"Этот сайт помог мне воплотить свою мечту в реальность. Я теперь знаю, как создать идеальное украшение." - Екатерина</p>  
+  </section>  
+  
+  <!-- Призыв к действию -->  
+  <section class="cta">  
+    <h2>Готовы начать?</h2>  
+    <a href="#create" class="cta-button">Начать создание украшения</a>  
+  </section>  
+  
+  <!-- Контактная информация -->  
+  <section class="contact">  
+    <h2>Свяжитесь с нами</h2>  
+    <form>  
+      <input type="text" placeholder="Ваше имя">  
+      <input type="email" placeholder="Ваш email">  
+      <textarea placeholder="Ваше сообщение"></textarea>  
+      <button type="submit">Отправить</button>  
+    </form>  
+  </section>  
+</body>  
+</html>

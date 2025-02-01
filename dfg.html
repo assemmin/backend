@@ -1,0 +1,205 @@
+<!DOCTYPE html> 
+<html lang="ru"> 
+<head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Создайте украшение в 3D</title> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script> 
+  <style> 
+    body { 
+      margin: 0; 
+      padding: 0; 
+      font-family: 'Poppins', sans-serif; 
+      background: #f8f8f8; 
+      color: #333; 
+    } 
+ 
+    h1 { 
+      text-align: center; 
+      margin-top: 50px; 
+    } 
+ 
+    .container { 
+      display: flex; 
+      justify-content: center; 
+      padding: 40px; 
+    } 
+ 
+    .selection-panel { 
+      width: 200px; 
+      padding: 20px; 
+      background-color: #fff; 
+      border-radius: 10px; 
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+      display: flex; 
+      flex-wrap: wrap; 
+      justify-content: space-between; 
+    } 
+ 
+    .vertical-beads, 
+    .horizontal-beads { 
+      display: flex; 
+      flex-direction: column; 
+    } 
+ 
+    .bead { 
+      width: 40px; 
+      height: 40px; 
+      border-radius: 50%; 
+      margin: 5px; 
+      cursor: pointer; 
+      transition: transform 0.2s ease-in-out; 
+    } 
+ 
+    .bead:hover { 
+      transform: scale(1.1); 
+    } 
+ 
+    #canvas { 
+      width: 500px; 
+      height: 500px; 
+      border-radius: 10px; 
+      background-color: #fafafa; 
+    } 
+ 
+    .buttons { 
+      margin-top: 20px; 
+      text-align: center; 
+    } 
+ 
+    .buttons button { 
+      padding: 10px 20px; 
+      margin: 10px; 
+      background-color: #1e90ff; 
+      border: none; 
+      border-radius: 5px; 
+      color: white; 
+      cursor: pointer; 
+      transition: background-color 0.3s ease; 
+    } 
+ 
+    .buttons button:hover { 
+      background-color: #006bb3; 
+    } 
+  </style> 
+</head> 
+<body> 
+ 
+  <h1>Создайте украшение в 3D</h1> 
+ 
+  <div class="container"> 
+    <div class="selection-panel"> 
+      <h2>Выберите бусины</h2> 
+      <div class="vertical-beads"> 
+        <div class="bead" style="background-color: #ff6347;" onclick="addBead('#ff6347')"></div> 
+        <div class="bead" style="background-color: #32cd32;" onclick="addBead('#32cd32')"></div> 
+        <div class="bead" style="background-color: #1e90ff;" onclick="addBead('#1e90ff')"></div> 
+        <div class="bead" style="background-color: #9932cc;" onclick="addBead('#9932cc')"></div> 
+        <div class="bead" style="background-color: #ff1493;" onclick="addBead('#ff1493')"></div> 
+        <div class="bead" style="background-color: #ff4500;" onclick="addBead('#ff4500')"></div> 
+        <div class="bead" style="background-color: #adff2f;" onclick="addBead('#adff2f')"></div> 
+        <div class="bead" style="background-color: #800080;" onclick="addBead('#800080')"></div> 
+        <div class="bead" style="background-color: #ff8c00;" onclick="addBead('#ff8c00')"></div> 
+        <div class="bead" style="background-color: #20b2aa;" onclick="addBead('#20b2aa')"></div> 
+      </div> 
+ 
+      <div class="horizontal-beads"> 
+        <div class="bead" style="background-color: #ff6347;" onclick="addBead('#ff6347')"></div> 
+        <div class="bead" style="background-color: #32cd32;" onclick="addBead('#32cd32')"></div> 
+        <div class="bead" style="background-color: #1e90ff;" onclick="addBead('#1e90ff')"></div> 
+        <div class="bead" style="background-color: #9932cc;" onclick="addBead('#9932cc')"></div> 
+        <div class="bead" style="background-color: #ff1493;" onclick="addBead('#ff1493')"></div> 
+        <div class="bead" style="background-color: #ff4500;" onclick="addBead('#ff4500')"></div> 
+        <div class="bead" style="background-color: #adff2f;" onclick="addBead('#adff2f')"></div> 
+        <div class="bead" style="background-color: #800080;" onclick="addBead('#800080')"></div> 
+        <div class="bead" style="background-color: #ff8c00;" onclick="addBead('#ff8c00')"></div> 
+        <div class="bead" style="background-color: #20b2aa;" onclick="addBead('#20b2aa')"></div> 
+      </div> 
+    </div> 
+    <div id="canvas"></div> 
+  </div> 
+ 
+  <div class="buttons"> 
+    <button onclick="removeLastBead()">Удалить последнюю бусину</button> 
+    <button onclick="resetAll()">Сбросить все</button> 
+  </div> 
+ 
+  <script> 
+    // Создаем сцену и камеру Three.js 
+    let scene = new THREE.Scene(); 
+    let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); 
+    let renderer = new THREE.WebGLRenderer(); 
+    renderer.setSize(500, 500); 
+    document.getElementById('canvas').appendChild(renderer.domElement); 
+ 
+    // Освещение 
+    let light = new THREE.AmbientLight(0x404040); // мягкий свет 
+    scene.add(light); 
+ 
+    let directionalLight = new THREE.DirectionalLight(0xffffff, 1); 
+    directionalLight.position.set(5, 5, 5).normalize(); 
+    scene.add(directionalLight); 
+ 
+    // Массив для хранения бусин 
+    let beadsArray = []; 
+    const radius = 1.5;  // Радиус круга, по которому будут располагаться бусины 
+    const totalBeads = 20; // Общее количество бусин 
+ 
+    // Функция добавления бусины в 3D 
+    function addBead(color) { 
+      // Вычисление угла для размещения бусины 
+      const angle = (beadsArray.length / totalBeads) * Math.PI * 2; 
+       
+      // Геометрия и материал для бусины 
+      let geometry = new THREE.SphereGeometry(0.1, 32, 32); 
+      let material = new THREE.MeshPhongMaterial({ color: color }); 
+      let bead = new THREE.Mesh(geometry, material); 
+ 
+      // Расположение бусины по окружности 
+      bead.position.x = radius * Math.cos(angle);  // Расчет по оси X 
+      bead.position.y = radius * Math.sin(angle);  // Расчет по оси Y 
+ 
+      scene.add(bead); 
+      beadsArray.push(bead); // Добавляем в массив 
+      render(); 
+    } 
+ 
+    // Функция удаления последней бусины 
+    function removeLastBead() { 
+      if (beadsArray.length > 0) { 
+        let bead = beadsArray.pop(); // Удаляем последнюю бусину из массива 
+        scene.remove(bead); // Удаляем бусину из сцены 
+        render(); 
+      } 
+    } 
+ 
+    // Функция сброса всех бусин 
+    function resetAll() { 
+      // Удаляем все бусины из сцены 
+      beadsArray.forEach(bead => scene.remove(bead)); 
+      beadsArray = []; // Очищаем массив 
+      render(); 
+    } 
+ 
+    // Функция рендеринга сцены 
+    function render() { 
+      renderer.render(scene, camera); 
+    } 
+ 
+    // Установка начальной позиции камеры 
+    camera.position.z = 3; 
+ 
+    // Обработчик анимации (для вращения сцены) 
+    function animate() { 
+      requestAnimationFrame(animate); 
+ 
+      // Вращаем сцену для 3D-эффекта 
+      scene.rotation.y += 0.01; 
+ 
+      render(); 
+    } 
+    animate(); 
+ 
+  </script> 
+</body> 
+</html>
