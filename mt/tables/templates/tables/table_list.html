@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Table List</title>
+</head>
+<body>
+    <h1>Список столов</h1>
+    <ul>
+        {% for table in tables %}
+            <li>Стол №{{ table.number }} - {{ table.seats }} мест ({{ table.is_available|yesno:"Доступен,Занят" }})</li>
+        {% empty %}
+            <li>Нет доступных столов</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
