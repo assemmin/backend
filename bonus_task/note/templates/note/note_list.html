@@ -1,0 +1,11 @@
+<h2>Заметки</h2>
+<a href="{% url 'note_create' %}">Создать заметку</a>
+<ul>
+    {% for note in notes %}
+        <li>
+            <a href="{% url 'note_detail' note.pk %}">{{ note.title }}</a>
+            <a href="{% url 'note_update' note.pk %}">Редактировать</a>
+            <a href="{% url 'note_delete' note.pk %}">Удалить</a>
+        </li>
+    {% endfor %}
+</ul>
